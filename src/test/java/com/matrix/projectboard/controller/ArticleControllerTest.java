@@ -66,7 +66,7 @@ class ArticleControllerTest {
         // When & Then
         mvc.perform(get("/articles/search"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(model().attributeExists("articles/search"));
         // 검색하면 목록외에 게시글에 대한 데이터는 없어야 한다.
     }
@@ -80,7 +80,7 @@ class ArticleControllerTest {
         // When & Then
         mvc.perform(get("/articles/search-hashtag"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.TEXT_HTML))
+                .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(model().attributeExists("articles/search-hashtag"));;
         // 검색하면 목록외에 게시글에 대한 데이터는 없어야 한다.
     }
