@@ -40,7 +40,6 @@ class ArticleControllerTest {
                 .andExpect(model().attributeExists("articles"));
     }
 
-    @Disabled("구현 중")
     @DisplayName("[view][GET] 게시글 상세 페이지 - 정상 호출")
     @Test
     public void givenNothing_whenRequestingArticleView_thenReturnsArticleView() throws Exception {
@@ -57,7 +56,7 @@ class ArticleControllerTest {
     }
 
     @Disabled("구현 중")
-    // 게시판 페이지에서 검색 바를 밑에 넣을 거라 이 테스트가 필요 없을 수 있다.
+    // 게시판 페이지에서 검색 bar를 밑에 넣을 예정이라 이 테스트가 필요 없을 수 있다.
     @DisplayName("[view][GET] 게시글 검색 전용 페이지 - 정상 호출")
     @Test
     public void givenNothing_whenRequestingArticleSearchView_thenReturnsArticleSearchView() throws Exception {
@@ -82,7 +81,7 @@ class ArticleControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(model().attributeExists("articles/search-hashtag"));;
-        // 검색하면 목록외에 게시글에 대한 데이터는 없어야 한다.
+        // 검색하면 목록 외에 게시글에 대한 데이터는 없어야 한다.
     }
 
 } // end of class
