@@ -10,7 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @Disabled("Spring Data REST 통합 테스트는 불필요하므로 제외시킴")
 @DisplayName("Data REST - API 테스트")
-@Transactional // Spring 쪽 애너테이션을 선택하자.
+@Transactional // org.springframework.transaction.annotation.Transactional
 @AutoConfigureMockMvc
 @SpringBootTest
 // 지금 이상태로는 MockMvc의 존재를 알 수 없기 때문에 애너테이션을 추가해 주어야 한다.
