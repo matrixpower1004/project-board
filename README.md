@@ -83,3 +83,18 @@ set FOREIGN_KEY_CHECKS = 1;
 List<Person> findByAddress_ZipCode(ZipCode zipCode);
 List<ArticleComment> findByArticle_Id(Long articleId);
 ```
+- `Page` interface의 `map` 메서드를 이용하여 DB에서 가져온 Entity Object를 간편하게 Dto로 변환할 수 있다.
+```java
+return articleRepository.findAll(pageable).map(ArticleDto::from);
+```
+- JPA method name에 `Containing`을 붙이면 부분 검색이 가능하다. 하지만 like `'%[keyword]%'`와 같이 % wild card가 앞뒤로 붙는 형태이므로 인덱스를 사용하지 못하여 성능 관련 이슈가 발생할 수 있다.
+```java
+Page<Article> findByContentContaining(String content, Pageable pageable);
+```
+- 보통 연관 관계에 있는 엔티티를 저장하기 위해 `findById()` 메서드를 사용하여 Entity를 불러오는데, 이는 불필요한 select문이 실행되는 결과를 낳는다. 이를 개선하기 위해 `getReferenceById()` 메서드를 사용하면 엔티티 생성에 프록시 객체를 넣어 주기 때문에 블필요한 select문이 실행되지 않는다.
+- 주의사항:  `findById()` 메서드는 Optional로 반환되기 때문에 예외 처리에 유리하지만, `getReferenceById()` 는 프록시 객체를 가져오기 때문에 예외 발생 위험이 있다.
+- `getOne()` 메서드는 Spring Boot 2.7에서 deprecate 되었고, 현재는 `getReferenceById()` 메서드 사용을 권장하고 있다. 
+- reference : https://docs.spring.io/spring-data/jpa/docs/current/api/deprecated-list.html
+```java
+Article article = articleRepository.getReferenceById(dto.id());
+```
