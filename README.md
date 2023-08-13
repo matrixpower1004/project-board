@@ -94,6 +94,7 @@ Page<Article> findByContentContaining(String content, Pageable pageable);
 ```
 - 보통 연관 관계에 있는 엔티티를 저장하기 위해 `findById()` 메서드를 사용하여 Entity를 불러오는데, 이는 불필요한 select문이 실행되는 결과를 낳는다. 이를 개선하기 위해 `getReferenceById()` 메서드를 사용하면 엔티티 생성에 프록시 객체를 넣어 주기 때문에 블필요한 select문이 실행되지 않는다.
 - 주의사항:  `findById()` 메서드는 Optional로 반환되기 때문에 예외 처리에 유리하지만, `getReferenceById()` 는 프록시 객체를 가져오기 때문에 예외 발생 위험이 있다.
+
 - `getOne()` 메서드는 Spring Boot 2.7에서 deprecated 되었고, 현재는 `getReferenceById()` 메서드 사용을 권장하고 있다. 
 - reference : https://docs.spring.io/spring-data/jpa/docs/current/api/deprecated-list.html
 ```java
