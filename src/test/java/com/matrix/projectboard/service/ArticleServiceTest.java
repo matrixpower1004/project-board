@@ -59,14 +59,14 @@ class ArticleServiceTest {
         SearchType searchType = SearchType.TITLE;
         String searchKeyword = "title";
         Pageable pageable = Pageable.ofSize(20);
-        given(articleRepository.findByTitle(searchKeyword, pageable)).willReturn(Page.empty());
+        given(articleRepository.findByTitleContaining(searchKeyword, pageable)).willReturn(Page.empty());
 
         // When
         Page<ArticleDto> articles = sut.searchArticles(searchType, searchKeyword, pageable);
 
         // Then
         assertThat(articles).isEmpty();
-        then(articleRepository).should().findByTitle(searchKeyword, pageable);
+        then(articleRepository).should().findByTitleContaining(searchKeyword, pageable);
     }
 
     @DisplayName("게시글을 조회하면, 게시글을 반환한다.")
@@ -169,10 +169,10 @@ class ArticleServiceTest {
 
     private UserAccount createUserAccount() {
         return UserAccount.of(
-                "uno",
-                "password",
-                "uno@email.com",
-                "Uno",
+                "matrix",
+                "1234",
+                "matrixpower1004@email.com",
+                "matrixpower",
                 null
         );
     }
@@ -197,23 +197,23 @@ class ArticleServiceTest {
                 content,
                 hashtag,
                 LocalDateTime.now(),
-                "Uno",
+                "matrix",
                 LocalDateTime.now(),
-                "Uno");
+                "matrix");
     }
 
     private UserAccountDto createUserAccountDto() {
         return UserAccountDto.of(
                 1L,
-                "uno",
-                "password",
-                "uno@mail.com",
-                "Uno",
+                "matrix",
+                "1234",
+                "matrixpowerj1004@mail.com",
+                "matrixpower",
                 "This is memo",
                 LocalDateTime.now(),
-                "uno",
+                "matrix",
                 LocalDateTime.now(),
-                "uno"
+                "matrix"
         );
     }
 
