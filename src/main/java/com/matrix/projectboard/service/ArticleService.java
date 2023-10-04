@@ -50,7 +50,6 @@ public class ArticleService {
                 .orElseThrow(() -> new EntityNotFoundException(("게시글이 없습니다 - articleId: " + articleId)));
     }
 
-
     public void saveArticle(ArticleDto dto) {
         articleRepository.save(dto.toEntity());
     }
