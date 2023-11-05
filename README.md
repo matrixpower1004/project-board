@@ -78,8 +78,8 @@ drop table [table_name];
 set FOREIGN_KEY_CHECKS = 1;
 ```
 - underscore(_)는 JPA Property Expressions에서 property 탐색을 위한 traversal points(순회 지점)을 수동으로 설정하는 예약어로 일반적인 경우에 사용해서는 안 된다. 아래와 같이 댓글 목록을 가져오는데 게시글의 id를 조회 조건으로 이용하거나, Pserson 객체의 목록을 조회하는데 Adderss 객체의 ZipCode property를 조회 조건으로 사용하는 등 property가 계층적(트리 구조) 연관관계를 가질 때 사용할 수 있다.
-- 공식 문서에서는 Property Expressions에 스네이크 표기법이 아닌 자바에서 사용하는 카멜표기법을 사용할 것을 추천하고 있다.
-- reference : https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-property-expressions
+  - 공식 문서에서는 Property Expressions에 스네이크 표기법이 아닌 자바에서 사용하는 카멜표기법을 사용할 것을 추천하고 있다.
+  - reference : https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#repositories.query-methods.query-property-expressions
 ```java
 List<Person> findByAddress_ZipCode(ZipCode zipCode);
 List<ArticleComment> findByArticle_Id(Long articleId);
@@ -100,7 +100,7 @@ Page<Article> findByContentContaining(String content, Pageable pageable);
 ```java
 Article article = articleRepository.getReferenceById(dto.id());
 ```
-- `@MockBean` 애너테이션은 필드 주임만 가능하고 생성자 주입은 불가능하다. `@AutoWired` 애너테이션이 METHOD, PARAMETER 에서 사용할 수 있도록 구현이 되어 있는 반면, `@MockBean` 애너테이션은 TYPE, FIELD에서 사용할 수 있도록 구현이 되어 있다.
+- `@MockBean` 애너테이션은 필드 주입만 가능하고 생성자 주입은 불가능하다. `@AutoWired` 애너테이션이 METHOD, PARAMETER 에서 사용할 수 있도록 구현이 되어 있는 반면, `@MockBean` 애너테이션은 TYPE, FIELD에서 사용할 수 있도록 구현이 되어 있다.
 ```java
 // AutoWired 애너테이션
 @Target({ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE})

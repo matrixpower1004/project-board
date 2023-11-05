@@ -107,7 +107,9 @@ class ArticleControllerTest {
     public void givenNothing_whenRequestingArticleView_thenReturnsArticleView() throws Exception {
         // Given
         Long articleId = 1L;
+        long totalCount = 1L;
         given(articleService.getArticle(articleId)).willReturn(createArticleWithCommentsDto());
+        given(articleService.getArticleCount()).willReturn(totalCount);
 
         // When & Then
         mvc.perform(get("/articles/" + articleId))
@@ -115,9 +117,11 @@ class ArticleControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(view().name("articles/detail"))
                 .andExpect(model().attributeExists("article"))
-                .andExpect(model().attributeExists("articleComments")); // 게시글 상세페이지에서는 댓글도 보여야 한다.
+                .andExpect(model().attributeExists("articleComments")) // 게시글 상세페이지에서는 댓글도 보여야 한다.
+                .andExpect(model().attribute("totalCount", totalCount));
         // 이 때는 게시글 데이터가 model attribute 에 넘겨져야 한다.
         then(articleService).should().getArticle(articleId);
+        then(articleService).should().getArticleCount();
     }
 
     @Disabled("구현 중")
@@ -146,7 +150,8 @@ class ArticleControllerTest {
         mvc.perform(get("/articles/search-hashtag"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
-                .andExpect(model().attributeExists("articles/search-hashtag"));;
+                .andExpect(model().attributeExists("articles/search-hashtag"));
+        ;
         // 검색하면 목록 외에 게시글에 대한 데이터는 없어야 한다.
     }
 
